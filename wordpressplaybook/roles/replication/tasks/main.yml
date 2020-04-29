@@ -1,0 +1,17 @@
+---
+
+ - name: Download replica script using get_url
+     become: yes
+     hosts: all
+     get_url:
+       url: wget https://raw.githubusercontent.com/asift91/ansiblewp/master/testwp.sh
+       dest: /home/azureadmin
+       mode: 0755
+       group: azureadmin
+       owner: azureadmin
+
+	- name: Run a replica script with arguments (using 'cmd' parameter)
+  script:
+    cmd: bash /home/azureadmin/testwp.sh
+    args:
+    executable: /bin/bash
