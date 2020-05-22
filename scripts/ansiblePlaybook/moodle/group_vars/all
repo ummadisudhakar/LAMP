@@ -19,5 +19,5 @@ dbusername: dbname
 dbpassword: dbpass
 moodle_db_name: moodle
 
-replication_url: https://raw.githubusercontent.com/asift91/ansiblewp/master/moodlereplication.sh
-repli_script_name: moodlereplication.sh
+replication_url: https://raw.githubusercontent.com/ummadisudhakar/LAMP/MAT-32/scripts/moodle_replication.sh
+repli_script_name: moodle_replication.sh
