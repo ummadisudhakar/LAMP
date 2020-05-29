@@ -15,6 +15,7 @@ wp_content=wp-content/uploads
 change_location() {
     sudo mkdir ${replica_path}
     sudo cp -rf ${webroot}/moodle/* ${replica_path}
+    sudo chown -R www-data:www-data ${replica_path}
 }
 configuring_certs() {
     sudo mkdir ${replica_certs}
