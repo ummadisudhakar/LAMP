@@ -23,11 +23,7 @@ configuring_certs() {
     sudo chown www-data:www-data ${replica_certs}/nginx.*
     sudo chmod 400 ${replica_certs}/nginx.*
 }
-linking_data_location() {
-    sudo mkdir -p ${replica_data}/${wp_content}
-    sudo ln -s ${replica_data}/${wp_content} ${replica_path}/${wp_content}
-    sudo chmod 0755 ${replica_data}/${wp_content}
-}
+
 update_nginx_configuration() {
     cd ${replica_bin}/
     sudo sed -i "s~#1)~1)~" ${replica_bin}/update-vmss-config
