@@ -35,12 +35,6 @@ update_nginx_configuration() {
     sudo sed -i "s~#;;~;;~" ${replica_bin}/update-vmss-config
     sleep 30
 }
-create_moodledata(){
-    sudo mkdir ${moodledata_path}
-    sudo mkdir ${moodledata_path}/moodledata
-    sudo chmod 755 ${moodledata_path}/
-    sudo chown www-data:www-data -R ${moodledata_path}/
-}
 replication() {
     cd /usr/local/bin/
     sudo bash update_last_modified_time.azlamp.sh
