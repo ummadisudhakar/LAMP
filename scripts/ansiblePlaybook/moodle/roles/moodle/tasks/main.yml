@@ -25,7 +25,15 @@
     group: "{{default_permission}}"
     owner: "{{default_permission}}"
     src: "{{moodle_download_path}}-{{version}}.tgz"
-
+- 
+  become: true
+  file: 
+    group: "{{default_permission}}"
+    mode: 493
+    owner: "{{default_permission}}"
+    path: "{{moodle_data_direc_path}}"
+    state: directory
+  name: "Create moodle data directory"
 - 
   name: create a database
   command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "CREATE DATABASE {{moodle_db_name}} CHARACTER SET utf8;"
@@ -39,7 +47,7 @@
 - debug: var=outputpremission.stdout_lines
 
 - name: install moodle
-  command: /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}}   --dataroot=/azlamp/datadir/moodledata --dbhost={{dbservername}}   --dbname={{moodle_db_name}}   --dbuser={{dbusername}}   --dbpass={{dbpassword}}   --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=iTalent@20   --adminemail=asift@italentdigital.com   --non-interactive --agree-license --allow-unstable || true
+  command: /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}} --dataroot={{moodle_data_direc_path}} --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=iTalent@20 --adminemail=asift@italentdigital.com --non-interactive=true --agree-license=true --allow-unstable=true
   become: true
 
 - 
