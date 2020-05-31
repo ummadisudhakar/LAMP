@@ -11,17 +11,23 @@ replica_data=/azlamp/data/${1}
 replica_bin=/azlamp/bin
 moodledata_path=/azlamp/datadir
 wp_content=wp-content/uploads
+default_permission=www-data
 
 change_location() {
     sudo mkdir ${replica_path}
     sudo cp -rf ${webroot}/moodle/* ${replica_path}
     sudo chown -R www-data:www-data ${replica_path}
 }
+
 configuring_certs() {
     sudo mkdir ${replica_certs}
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${replica_certs}/nginx.key -out ${replica_certs}/nginx.crt -subj "/C=US/ST=WA/L=Redmond/O=IT/CN=${1}"
-    sudo chown www-data:www-data ${replica_certs}/nginx.*
+    sudo chown ${default_permission}:${default_permission} ${replica_certs}/nginx.*
     sudo chmod 400 ${replica_certs}/nginx.*
+}
+
+change_moodledata_permission{
+    sudo chown -R ${default_permission}:${default_permission} /azlamp/moodledata
 }
 
 update_nginx_configuration() {
@@ -39,8 +45,7 @@ replication() {
 
 # ${1} value is a domain name which will update in runtime
 change_location
-configuring_certs ${1}
-linking_data_location 
+configuring_certs ${1} 
+change_moodledata_permission
 update_nginx_configuration
-create_moodledata
 replication 
