@@ -26,7 +26,7 @@ configuring_certs() {
     sudo chmod 400 ${replica_certs}/nginx.*
 }
 
-change_moodledata_permission{
+change_moodledata_permission() {
     sudo chown -R ${default_permission}:${default_permission} /azlamp/moodledata
 }
 
