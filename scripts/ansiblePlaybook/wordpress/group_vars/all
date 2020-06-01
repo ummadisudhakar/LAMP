@@ -5,6 +5,10 @@ wp_db_server_name: wordpress
 wp_db_user: wordpress
 wp_db_password: password
 wp_db_name: wordpress
+wp_title: LAMP-WordPress
+wp_admin: admin
+wp_admin_password: iTalent@20
+wp_email: v-motalu@microsoft.com
 
 # Disable All Updates
 # By default automatic updates are enabled, set this value to true to disable all automatic updates
@@ -40,6 +44,7 @@ wordpress_url: https://wordpress.org/wordpress
 wordpress_path: /tmp/wordpress
 wp_salt_path: https://api.wordpress.org/secret-key/1.1/salt/
 
+wp-cli_url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 woocommerce_plugin_url: https://downloads.wordpress.org/plugin/woocommerce.
 woocommerce_url: https://raw.githubusercontent.com/ummadisudhakar/LAMP/ansible_playbook_mat32/scripts/woocommerce.sh
 woocommerce_script_name: woocommerce.sh
