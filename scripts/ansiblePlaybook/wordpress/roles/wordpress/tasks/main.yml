@@ -70,16 +70,16 @@
   become: yes
   no_log: true
   
-- name: download wp-cli
+- name: download wpcli
   get_url:
-    dest: "{{user_name}}"
+    dest: "/home/{{user_name}}"
     group: "{{default_permission}}"
     owner: "{{default_permission}}"
-    url: "{{wp-cli_url}}"
+    url: "{{wp_cli_url}}"
   become: yes
 
 - name: install wp-cli
-  command: "chmod +x "{{user_name}}"/wp-cli.phar"
+  command: "chmod +x "/home/{{user_name}}"/wp-cli.phar"
   become: yes
 
 - name: move wp-cli
