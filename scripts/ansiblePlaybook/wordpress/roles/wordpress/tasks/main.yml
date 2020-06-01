@@ -69,3 +69,23 @@
     - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_db_password}}');"}
   become: yes
   no_log: true
+  
+- name: download wp-cli
+  get_url:
+    dest: "{{user_name}}"
+    group: "{{default_permission}}"
+    owner: "{{default_permission}}"
+    url: "{{wp-cli_url}}"
+  become: yes
+
+- name: install wp-cli
+  command: "chmod +x "{{user_name}}"/wp-cli.phar"
+  become: yes
+
+- name: move wp-cli
+  command: "mv /home/azureadmin/wp-cli.phar /usr/local/bin/wp"
+  become: yes
+
+- name: install wordpress
+  command: "wp core install --url='http://{{vm_ip}}' --title='{{wp_title}}' --admin_user='{{wp_admin}}' --admin_password='{{wp_admin_password}}' --admin_email='{{wp_email}}'"
+  become: yes
