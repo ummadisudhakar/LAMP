@@ -30,6 +30,7 @@ wordpress_install() {
   svn checkout https://github.com/ummadisudhakar/LAMP/trunk/scripts/ansiblePlaybook/wordpress
 
   sudo sed -i "s~domain_name: domain~domain_name: ${5}~" ${vars_path}
+  sudo sed -i "s~dns_name: domain~dns_name: ${5}~" ${vars_path}
   sudo sed -i "s~user_name: azusername~user_name: ${1}~" ${vars_path}  
   sudo sed -i "s~wp_db_server_name: wordpress~wp_db_server_name: ${2}~" ${vars_path} 
   sudo sed -i "s~wp_db_user: wordpress~wp_db_user: ${3}~" ${vars_path} 
