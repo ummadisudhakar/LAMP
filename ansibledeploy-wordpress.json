@@ -275,7 +275,7 @@
                     "computerName": "[variables('ansibleVmName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('sshPublicKey')]",
-                    "linuxConfiguration": "variables('linuxConfiguration')"
+                    "linuxConfiguration": "[ variables('linuxConfiguration')]"
                 }
             }
         },
