@@ -79,11 +79,11 @@
   become: yes
 
 - name: install wp-cli
-  command: "chmod +x "/home/{{user_name}}"/wp-cli.phar"
+  command: "chmod +x /home/{{user_name}}/wp-cli.phar"
   become: yes
 
 - name: move wp-cli
-  command: "mv "/home/{{user_name}}"/wp-cli.phar /usr/local/bin/wp"
+  command: "mv /home/{{user_name}}/wp-cli.phar /usr/local/bin/wp"
   become: yes
 
 - name: install wordpress
