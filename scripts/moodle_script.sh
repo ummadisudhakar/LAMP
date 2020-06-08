@@ -32,6 +32,7 @@ run_moodle_playbook() {
     sudo sed -i "s~dbpassword: dbpass~dbpassword: ${6}~" ${vars_path}
     sudo sed -i "s~domain_name: domain~domain_name: ${7}~" ${vars_path}
     sudo sed -i "s~lbip: ip~lbip: ${8}~" ${vars_path}
+    sudo sed -i "s~moodle_db_name: moodle~moodle_db_name: ${9}~" ${vars_path}
 
     ansible-playbook /home/${3}/moodle/playbook.yml -i /etc/ansible/hosts -u ${3}
 }
@@ -41,6 +42,6 @@ sudo systemctl restart ssh
 setup_ansible
 configure_ansible_inventory ${1} ${4}
 install_svn
-run_moodle_playbook ${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${log_path} >>${log_path}
+run_moodle_playbook ${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9} >>${log_path}
 sudo sed -i "s~   StrictHostKeyChecking no~#   StrictHostKeyChecking ask~" /etc/ssh/ssh_config >>${log_path}
 sudo systemctl restart ssh
