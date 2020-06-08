@@ -186,19 +186,6 @@
                             "destinationAddressPrefix": "*",
                             "destinationPortRange": "443"
                         }
-                    },
-                    {
-                        "name": "DB",
-                        "properties": {
-                            "priority": 1003,
-                            "protocol": "TCP",
-                            "access": "Allow",
-                            "direction": "Inbound",
-                            "sourceAddressPrefix": "*",
-                            "sourcePortRange": "*",
-                            "destinationAddressPrefix": "*",
-                            "destinationPortRange": "3306"
-                        }
                     }
                 ]
             }
