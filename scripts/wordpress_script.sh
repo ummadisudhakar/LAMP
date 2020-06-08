@@ -37,6 +37,7 @@ wordpress_install() {
   sudo sed -i "s~wp_db_password: password~wp_db_password: ${4}~" ${vars_path}
   sudo sed -i "s~vm_password: password~vm_password: ${6}~" ${vars_path}
   sudo sed -i "s~vm_ip: IP~vm_ip: ${7}~" ${vars_path}
+  sudo sed -i "s~wp_db_name: wordpress~wp_db_name: ${8}~" ${vars_path}
 
   ansible-playbook /home/${1}/wordpress/playbook.yml -i /etc/ansible/hosts -u ${1}
 }
@@ -46,6 +47,6 @@ sudo systemctl restart ssh
 install_ansible >> ${log_path}
 configure_ansible ${1} ${3} >> ${log_path}
 install_svn
-wordpress_install ${3} ${4} ${5} ${6} ${7} ${2} ${1} >> ${log_path}
+wordpress_install ${3} ${4} ${5} ${6} ${7} ${2} ${1} ${8} >> ${log_path}
 sudo sed -i "s~   StrictHostKeyChecking no~#   StrictHostKeyChecking ask~" /etc/ssh/ssh_config 
 sudo systemctl restart ssh
