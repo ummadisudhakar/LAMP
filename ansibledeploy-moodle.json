@@ -22,7 +22,7 @@
         "sshPublicKey": {
             "type": "SecureString",
             "metadata": {
-                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+                "description": "SSH Key for the Virtual Machine. SSH key is recommended."
             }
         },
         "loadBalancerIP(ControllerVM)": {
@@ -68,6 +68,12 @@
                 "description": "Database server Admin login Password."
             }
         },
+        "newDatabaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "Create new database with the provided name."
+            }
+        },
         "MoodleDomainName": {
             "type": "string",
             "metadata": {
@@ -83,7 +89,7 @@
         }
     },
     "variables": {
-        "scriptinput": "[concat(parameters('MoodleRemoteVMIP(ControllerVM)'), ' ',parameters('remoteVMPassword(ControllerVM)'), ' ', parameters('adminUsername'), ' ', parameters('databaseServerName'), ' ', parameters('databaseServerAdminLoginName'), ' ', parameters('databaseServerAdminLoginPassword'), ' ', parameters('MoodleDomainName'),' ', parameters('loadBalancerIP(ControllerVM)'))]",
+        "scriptinput": "[concat(parameters('MoodleRemoteVMIP(ControllerVM)'), ' ',parameters('remoteVMPassword(ControllerVM)'), ' ', parameters('adminUsername'), ' ', parameters('databaseServerName'), ' ', parameters('databaseServerAdminLoginName'), ' ', parameters('databaseServerAdminLoginPassword'), ' ', parameters('MoodleDomainName'),' ', parameters('loadBalancerIP(ControllerVM)'), ' ', parameters('newDatabaseName'))]",
         "base64String": "[base64(variables('scriptinput'))]",
         "resourceprefix": "[substring(uniqueString(resourceGroup().id, deployment().name), 3, 6)]",
         "ansibleVmSku": "[parameters('ansibleVmSku')]",
