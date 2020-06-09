@@ -5,7 +5,7 @@
 
 log_path=/home/${3}/var.txt
 vars_path=/home/${3}/moodle/group_vars/all
-
+# moodle_pass is the moodle site password
 moodle_pass=$(</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
 moodle_db_pass=$(</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
 
@@ -26,7 +26,6 @@ install_svn() {
 run_moodle_playbook() {
     cd /home/${3}
     svn checkout https://github.com/ummadisudhakar/LAMP/trunk/scripts/ansiblePlaybook/moodle
-
     sudo sed -i "s~vm_ip: IP~vm_ip: ${1}~" ${vars_path}
     sudo sed -i "s~vm_password: password~vm_password: ${2}~" ${vars_path}
     sudo sed -i "s~user_name: azusername~user_name: ${3}~" ${vars_path}
@@ -38,7 +37,6 @@ run_moodle_playbook() {
     sudo sed -i "s~moodle_db_name: moodle~moodle_db_name: ${9}~" ${vars_path}
     sudo sed -i "s~moodle_db_pass: ~moodle_db_pass: ${moodle_db_pass}~" ${vars_path}
     sudo sed -i "s~moodle_pass: ~moodle_pass: ${moodle_pass}~" ${vars_path}
-
     ansible-playbook /home/${3}/moodle/playbook.yml -i /etc/ansible/hosts -u ${3}
 }
 
@@ -50,14 +48,3 @@ install_svn
 run_moodle_playbook ${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9} >>${log_path}
 sudo sed -i "s~   StrictHostKeyChecking no~#   StrictHostKeyChecking ask~" /etc/ssh/ssh_config >>${log_path}
 sudo systemctl restart ssh
-
- cat <<EOF > /home/"${1}"/moodle.txt
-  #!/bin/bash
-  moodle details:
-  uid: admin
-  pwd: ${moodle_pass}
-  moodle db user details:
-  uid: moodle
-  pwd: ${moodle_db_pass}
-EOF
-sudo chown -R "${1}":"${1}" /home/"${1}"/moodle.txt
