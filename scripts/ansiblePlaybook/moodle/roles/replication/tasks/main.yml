@@ -17,11 +17,10 @@
   copy:
     dest: "/home/{{ user_name | quote }}/moodle.txt"
     content: |
-      moodle details:
+      Moodle Site Details:
       uid= {{ moodle_login_id | quote }}
       pwd= {{ moodle_pass | quote }}
-      moodle db details:
+      Moodle DB User Details:
       db_id= {{ moodle_db_user | quote }}
       db_pwd= {{ moodle_db_pass | quote }}
-    
     
