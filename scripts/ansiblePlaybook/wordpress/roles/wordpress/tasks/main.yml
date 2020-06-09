@@ -9,7 +9,7 @@
   become: yes
 
 - name: Check if WordPress directory exists in "{{webroot}}"
-  stat: path="{{webroot}}/{{wordpress_direc}}"
+  stat: path="{{webroot}}/{{wordpress_dir}}"
   register: check_path
 
 - name: Download WordPress
@@ -41,7 +41,7 @@
   register: outputpremission
 
 - name: Move WordPress install files
-  command: "mv {{wordpress_path}} {{webroot}}/{{wordpress_direc}}"
+  command: "mv {{wordpress_path}} {{webroot}}/{{wordpress_dir}}"
   become: yes
   when: not check_path.stat.exists
 
@@ -51,13 +51,13 @@
   become: no
 
 - name: Add wp-config
-  template: "src=wp-config.php dest={{webroot}}/{{wordpress_direc}}/wp-config.php"
+  template: "src=wp-config.php dest={{webroot}}/{{wordpress_dir}}/wp-config.php"
   become: yes
 
 - name: Update WordPress config file
 
   lineinfile:
-    dest: "{{webroot}}/{{wordpress_direc}}/wp-config.php"
+    dest: "{{webroot}}/{{wordpress_dir}}/wp-config.php"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
@@ -84,5 +84,5 @@
   become: yes
 
 - name: install wordpress
-  command: "wp core install --url='http://{{dns_name}}' --title='{{wp_title}}' --admin_user='{{wp_admin}}' --admin_password='{{wp_admin_password}}' --admin_email='{{wp_email}}' --path='{{webroot}}/{{wordpress_direc}}'"
+  command: "wp core install --url='http://{{lb_dns_name}}' --title='{{wp_title}}' --admin_user='{{wp_admin_user}}' --admin_password='{{wp_admin_password}}' --admin_email='{{wp_admin_email}}' --path='{{webroot}}/{{wordpress_dir}}'"
  
