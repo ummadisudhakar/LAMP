@@ -34,14 +34,11 @@
   name: create a database
   command: mysql -h {{wp_db_server_name}} -u {{wp_db_user}} -p{{wp_db_password}} -e "CREATE DATABASE {{wp_db_name}} CHARACTER SET utf8;"
   register: output
-- debug: var=output.stdout_lines
 
 - 
   name: grant user permission to database
-  command: mysql -h {{wp_db_server_name}} -u {{wp_db_user}} -p{{wp_db_password}} -e "GRANT ALL ON {{wp_db_name}}.* TO moodle IDENTIFIED BY 'WordPress@123';"
+  command: mysql -h {{wp_db_server_name}} -u {{wp_db_user}} -p{{wp_db_password}} -e "GRANT ALL ON {{wp_db_name}}.* TO {{wp_db_user}} IDENTIFIED BY '{{wp_db_pass}}';"
   register: outputpremission
-- debug: var=outputpremission.stdout_lines
-
 
 - name: Move WordPress install files
   command: "mv {{wordpress_path}} {{webroot}}/{{wordpress_direc}}"
@@ -87,5 +84,5 @@
   become: yes
 
 - name: install wordpress
-  command: "wp core install --url='http://{{dns_name}}' --title='{{wp_title}}' --admin_user='{{wp_admin}}' --admin_password='{{wp_admin_password}}' --admin_email='{{wp_email}}' --path='{{webroot}}/wordpress'"
+  command: "wp core install --url='http://{{dns_name}}' --title='{{wp_title}}' --admin_user='{{wp_admin}}' --admin_password='{{wp_admin_password}}' --admin_email='{{wp_email}}' --path='{{webroot}}/{{wordpress_direc}}'"
  
