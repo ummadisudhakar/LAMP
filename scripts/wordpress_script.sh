@@ -1,18 +1,21 @@
 #!/bin/bash
 
-# wordpress_script will be replacing the inputs dynamically
-# wordpress_script will be executing the playbook 
+# Install ansible server, SVN and configure the host VM IP (controller VM IP) 
+# It will update groups_var/all file in playbook with the user inputs dynamically
+# It will execute ansible playbook for installing WordPress in host VM (controller VM)
 
 log_path=/home/${3}/var.txt
 home_path=/home/${3}
 vars_path=/home/${3}/wordpress/group_vars/all
+# wp_admin_password is the password for wordpress site
+wp_admin_password=$(</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
+wp_db_user_pass=$(</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
 
 install_ansible() {
   sudo apt-add-repository ppa:ansible/ansible -y
   sudo apt-get update
   sudo apt-get install ansible -y
 }
-
 configure_ansible() {
   sudo chown -R ${2}:${2} ${home_path}/.ansible/cp
   echo "Configure ansible Ip is : ${1}" >> ${log_path}
@@ -24,11 +27,9 @@ install_svn() {
   sudo apt-get update -y
   sudo apt-get install -y subversion
 }
-
 wordpress_install() {
   cd /home/${1}
   svn checkout https://github.com/ummadisudhakar/LAMP/trunk/scripts/ansiblePlaybook/wordpress
-
   sudo sed -i "s~domain_name: domain~domain_name: ${5}~" ${vars_path}
   sudo sed -i "s~dns_name: domain~dns_name: ${5}~" ${vars_path}
   sudo sed -i "s~user_name: azusername~user_name: ${1}~" ${vars_path}  
@@ -38,7 +39,8 @@ wordpress_install() {
   sudo sed -i "s~vm_password: password~vm_password: ${6}~" ${vars_path}
   sudo sed -i "s~vm_ip: IP~vm_ip: ${7}~" ${vars_path}
   sudo sed -i "s~wp_db_name: wordpress~wp_db_name: ${8}~" ${vars_path}
-
+  sudo sed -i "s~wp_admin_password: ~wp_admin_password: ${wp_admin_password}~" ${vars_path}
+  sudo sed -i "s~wp_db_user_pass: ~wp_db_user_pass: ${wp_db_user_pass}~" ${vars_path}
   ansible-playbook /home/${1}/wordpress/playbook.yml -i /etc/ansible/hosts -u ${1}
 }
 
