@@ -72,16 +72,10 @@
             "metadata": {
                 "description": "Domain for WordPress"
             }
-        },
-        "location": {
-            "defaultValue": "East US",
-            "type": "String",
-            "metadata": {
-                "description": "Location for all resources. Default location."
-            }
         }
     },
     "variables": {
+        "location": "[resourceGroup().location]",
         "scriptinput": "[concat(parameters('WordpressRemoteVMIP(ControllerVM)'), ' ',parameters('remoteVMPassword(ControllerVM)'), ' ', parameters('adminUsername'), ' ', parameters('databaseServerName'), ' ', parameters('ServerAdminLoginName'), ' ', parameters('ServerAdminLoginPassword'), ' ', parameters('wordPressDomainName'), ' ', parameters('newDatabaseName'))]",
         "base64String": "[base64(variables('scriptinput'))]", 
         "resourceprefix": "[substring(uniqueString(resourceGroup().id, deployment().name), 3, 6)]",
@@ -115,7 +109,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
             "name": "[variables('networkInterfaceName')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('ansibleNsgName'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/', variables('ansibleVnet'))]",
@@ -145,7 +139,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-02-01",
             "name": "[variables('ansibleNsgName')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "properties": {
                 "securityRules": [
                     {
@@ -194,7 +188,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-04-01",
             "name": "[variables('ansibleVnet')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
@@ -217,7 +211,7 @@
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
             "name": "[variables('publicIpAddressName')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "sku": {
                 "name": "Basic",
                 "tier": "Regional"
@@ -235,7 +229,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
             "name": "[variables('ansibleVmName')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces/', variables('ansibleNicName'))]"
             ],
@@ -276,7 +270,7 @@
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2017-03-30",
             "name": "[concat(variables('ansibleVmName'),'/','ansibleServer')]",
-            "location": "[parameters('location')]",
+            "location": "[variables('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/',variables('ansibleVmName'))]"
             ],
