@@ -5,7 +5,6 @@
      become: true
 
    - name: "install sshpass"
-     #command: apt-get install sshpass
      apt:
        name: sshpass
        state: latest
