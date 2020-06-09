@@ -18,6 +18,9 @@ dbservername: localhost
 dbusername: dbname
 dbpassword: dbpass
 moodle_db_name: moodle
+moodle_login_id: admin
+moodle_pass: iTalent@20
+moodle_admin_mail: test@gmail.com
 
 replication_url: https://raw.githubusercontent.com/ummadisudhakar/LAMP/ansible_playbook_mat32/scripts/moodle_replication.sh
 repli_script_name: moodle_replication.sh
