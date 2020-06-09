@@ -47,7 +47,7 @@
 - debug: var=outputpremission.stdout_lines
 
 - name: install moodle
-  command: /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}} --dataroot={{moodle_data_direc_path}} --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=iTalent@20 --adminemail=asift@italentdigital.com --non-interactive=true --agree-license=true --allow-unstable=true
+  command: /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=https://{{lbip}} --dataroot={{moodle_data_direc_path}} --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser={{moodle_login_id}} --adminpass={{moodle_pass}} --adminemail={{moodle_admin_mail}} --non-interactive=true --agree-license=true --allow-unstable=true
   become: true
 
 - 
