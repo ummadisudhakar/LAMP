@@ -37,7 +37,7 @@
 
 - 
   name: grant user permission to database
-  command: mysql -h {{wp_db_server_name}} -u {{wp_db_user}} -p{{wp_db_password}} -e "GRANT ALL ON {{wp_db_name}}.* TO {{wp_db_user}} IDENTIFIED BY '{{wp_db_pass}}';"
+  command: mysql -h {{wp_db_server_name}} -u {{wp_db_user}} -p{{wp_db_password}} -e "GRANT ALL ON {{wp_db_name}}.* TO {{wp_db_user}} IDENTIFIED BY '{{wp_db_user_pass}}';"
   register: outputpremission
 
 - name: Move WordPress install files
