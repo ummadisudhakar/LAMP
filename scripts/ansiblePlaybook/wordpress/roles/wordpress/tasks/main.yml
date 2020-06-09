@@ -9,7 +9,7 @@
   become: yes
 
 - name: Check if WordPress directory exists in "{{webroot}}"
-  stat: path="{{webroot}}/{{server_hostname}}"
+  stat: path="{{webroot}}/{{wordpress_direc}}"
   register: check_path
 
 - name: Download WordPress
@@ -44,7 +44,7 @@
 
 
 - name: Move WordPress install files
-  command: "mv {{wordpress_path}} {{webroot}}/{{server_hostname}}"
+  command: "mv {{wordpress_path}} {{webroot}}/{{wordpress_direc}}"
   become: yes
   when: not check_path.stat.exists
 
@@ -54,13 +54,13 @@
   become: no
 
 - name: Add wp-config
-  template: "src=wp-config.php dest={{webroot}}/{{server_hostname}}/wp-config.php"
+  template: "src=wp-config.php dest={{webroot}}/{{wordpress_direc}}/wp-config.php"
   become: yes
 
 - name: Update WordPress config file
 
   lineinfile:
-    dest: "{{webroot}}/{{server_hostname}}/wp-config.php"
+    dest: "{{webroot}}/{{wordpress_direc}}/wp-config.php"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
