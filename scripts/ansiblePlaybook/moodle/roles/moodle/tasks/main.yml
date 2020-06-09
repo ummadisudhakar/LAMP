@@ -42,7 +42,7 @@
 
 - 
   name: grant user permission to database
-  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "GRANT ALL ON {{moodle_db_name}}.* TO {{moodle_db_user}} IDENTIFIED BY {{moodle_db_pass}};"
+  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "GRANT ALL ON {{moodle_db_name}}.* TO {{moodle_db_user}} IDENTIFIED BY '{{moodle_db_pass}}';"
   register: outputpremission
 - debug: var=outputpremission.stdout_lines
 
