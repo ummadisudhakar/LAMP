@@ -12,3 +12,14 @@
   shell: /home/{{user_name | quote }}/{{replication_name}} {{domain_name | quote }}
   args:
     executable: /bin/bash
+
+- name: Create wordpress.txt file for user
+  copy:
+    dest: "/home/{{ user_name | quote }}/wordpress.txt"
+    content: |
+      WordPress Site Details:
+      uid= {{ wp_admin | quote }}
+      pwd= {{ wp_admin_password | quote }}
+      WordPress DB User Details:
+      db_id= {{ wp_db_user | quote }}
+      db_pwd= {{ wp_db_user_pass | quote }}
