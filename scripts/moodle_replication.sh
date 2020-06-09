@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#moodle replication script will be replicating the moodle folder to virtual machine scaleset
-#create a moodledata directory which is required for the moodle
-#update the nginx configuration with the help of cron job
+# Generates OpenSSL certificates.
+# Moodle replication script will be replicating the Moodle folder to virtual machine scaleset
+# Updates the nginx configuration
 
 webroot=/var/www/html
 replica_path=/azlamp/html/${1}
@@ -18,25 +18,21 @@ change_location() {
     sudo cp -rf ${webroot}/moodle/* ${replica_path}
     sudo chown -R www-data:www-data ${replica_path}
 }
-
 configuring_certs() {
     sudo mkdir ${replica_certs}
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${replica_certs}/nginx.key -out ${replica_certs}/nginx.crt -subj "/C=US/ST=WA/L=Redmond/O=IT/CN=${1}"
     sudo chown ${default_permission}:${default_permission} ${replica_certs}/nginx.*
     sudo chmod 400 ${replica_certs}/nginx.*
 }
-
 change_moodledata_permission() {
     sudo chown -R ${default_permission}:${default_permission} /azlamp/moodledata
 }
-
 update_nginx_configuration() {
     cd ${replica_bin}/
     sudo sed -i "s~#1)~1)~" ${replica_bin}/update-vmss-config
     sudo sed -i "s~#    . /azlamp/bin/utils.sh~   . /azlamp/bin/utils.sh~" ${replica_bin}/update-vmss-config
     sudo sed -i "s~#    reset_all_sites_on_vmss true VMSS~    reset_all_sites_on_vmss true VMSS~" ${replica_bin}/update-vmss-config
     sudo sed -i "s~#;;~;;~" ${replica_bin}/update-vmss-config
-    sleep 30
 }
 replication() {
     cd /usr/local/bin/
