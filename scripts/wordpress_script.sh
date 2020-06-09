@@ -29,7 +29,7 @@ install_svn() {
 }
 wordpress_install() {
   cd /home/${1}
-  svn checkout https://github.com/ummadisudhakar/LAMP/trunk/scripts/ansiblePlaybook/wordpress
+  svn checkout https://github.com/Azure/LAMP/trunk/scripts/ansiblePlaybook/wordpress
   sudo sed -i "s~domain_name: domain~domain_name: ${5}~" ${vars_path}
   sudo sed -i "s~dns_name: domain~dns_name: ${5}~" ${vars_path}
   sudo sed -i "s~user_name: azusername~user_name: ${1}~" ${vars_path}  
