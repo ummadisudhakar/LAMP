@@ -15,4 +15,4 @@
 
 -
   name: "Activate woocommerce with wp cli command"
-  command: "wp plugin activate woocommerce --path='{{webroot}}/wordpress'"
+  command: "wp plugin activate woocommerce --path='{{webroot}}/{{wordpress_dir}}'"
