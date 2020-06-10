@@ -13,7 +13,7 @@ wget_script(){
   sudo chown -R "${1}":"${1}" /home/"${1}"/moodle_script.sh
 }
 
-wget_script ${1} >> /home/"${1}"/log.txt
+wget_script ${1}
 
   cat <<EOF > /home/"${1}"/run.sh
   #!/bin/bash
