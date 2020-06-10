@@ -1,8 +1,10 @@
 #!/bin/bash
 
-#replication of the wordpress from controller vm to instances with the help of cron job
+# Generates OpenSSL certificates.
+# WordPress replication script will be replicating the WordPress folder to virtual machine scaleset
+# Updates the nginx configuration
 
-webroot=/var/www/html
+webroot=${2}
 replica_path=/azlamp/html/${1}
 replica_certs=/azlamp/certs/${1}
 replica_data=/azlamp/data/${1}
@@ -31,7 +33,6 @@ update_nginx_configuration() {
     sudo sed -i "s~#    . /azlamp/bin/utils.sh~   . /azlamp/bin/utils.sh~" ${replica_bin}/update-vmss-config
     sudo sed -i "s~#    reset_all_sites_on_vmss true VMSS~    reset_all_sites_on_vmss true VMSS~" ${replica_bin}/update-vmss-config
     sudo sed -i "s~#;;~;;~" ${replica_bin}/update-vmss-config
-    sleep 30
 }
 replication() {
     cd /usr/local/bin/
