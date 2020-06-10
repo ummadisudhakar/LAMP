@@ -23,7 +23,6 @@ moodle_pass:
 moodle_admin_mail: test@gmail.com
 moodle_full_name: Moodle LMS
 moodle_short_name: Moodle
-
 moodle_db_user: moodle
 moodle_db_pass: 
 
