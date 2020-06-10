@@ -44,11 +44,13 @@ wordpress_install() {
   ansible-playbook /home/${1}/wordpress/playbook.yml -i /etc/ansible/hosts -u ${1}
 }
 
+# Disable strict host key checking to configure host VM IP  (controller VM IP)
 sudo sed -i "s~#   StrictHostKeyChecking ask~   StrictHostKeyChecking no~" /etc/ssh/ssh_config 
 sudo systemctl restart ssh
 install_ansible >> ${log_path}
 configure_ansible ${1} ${3} >> ${log_path}
 install_svn
 wordpress_install ${3} ${4} ${5} ${6} ${7} ${2} ${1} ${8} >> ${log_path}
+# Enable strict host key checking
 sudo sed -i "s~   StrictHostKeyChecking no~#   StrictHostKeyChecking ask~" /etc/ssh/ssh_config 
 sudo systemctl restart ssh
