@@ -9,7 +9,7 @@ decotext=`echo ${2} | base64 --decode`
 
 clonerepo(){
   cd /home/"${1}"/ 
-  wget https://raw.githubusercontent.com/ummadisudhakar/LAMP/ansible_playbook_mat32/scripts/wordpress_script.sh
+  wget https://raw.githubusercontent.com/Azure/LAMP/master/scripts/wordpress_script.sh
   sudo chown -R "${1}":"${1}" /home/"${1}"/wordpress_script.sh
 }
 clonerepo ${1}
