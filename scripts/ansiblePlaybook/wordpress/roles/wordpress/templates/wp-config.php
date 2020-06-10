@@ -29,7 +29,7 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-/**#@+
+/**
  * Authentication Unique Keys and Salts.
  * You can generate unique keys and salts at https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service
  * You can change these at any point in time to invalidate all existing cookies.
