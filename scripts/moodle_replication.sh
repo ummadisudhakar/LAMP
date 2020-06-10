@@ -4,7 +4,7 @@
 # Moodle replication script will be replicating the Moodle folder to virtual machine scaleset
 # Updates the nginx configuration
 
-webroot=/var/www/html
+webroot=${2}
 replica_path=/azlamp/html/${1}
 replica_certs=/azlamp/certs/${1}
 replica_data=/azlamp/data/${1}
